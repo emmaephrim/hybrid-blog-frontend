@@ -1,0 +1,100 @@
+<!-- Blog Entries Column -->
+<div>
+  <div class="my-4 page-heading">
+    <h1>
+      Welcome to Our Blog
+      <small>Your Source for the Latest Insights and Stories</small>
+    </h1>
+  </div>
+
+  <!-- Blog Post -->
+  <div class="card mb-4" *ngFor="let post of posts">
+    <img
+      class="card-img-top"
+      src="{{
+        post.imageUrl ? post.imageUrl : 'images/blog_post_default_image.jpg'
+      }}"
+      width="750"
+      height="300"
+      style="object-fit: cover"
+      alt="{{ post.title }}"
+    />
+    <div class="card-body">
+      <h2 class="card-title">{{ post.title }}</h2>
+      <div class="card-text" [innerHTML]="post.content"></div>
+
+      <a [routerLink]="['/post', post.id, 'comments']" class="btn btn-primary"
+        >Read More &rarr;</a
+      >
+    </div>
+    <div class="card-footer text-muted">
+      Posted on {{ formatDate(post.createdAt) }} by
+      <span href="" class="text-primary">....</span>
+
+      <!-- Likes -->
+      <button class="btn btn-light" (click)="likePost(post.id)">
+        <i class="bi bi-hand-thumbs-up text-success mr-2"></i>
+        <span class="text-success">{{ post.likes }}</span>
+      </button>
+
+      <button class="btn btn-light" (click)="dislikePost(post.id)">
+        <i class="bi bi-hand-thumbs-down text-danger mr-2"></i>
+        <span class="text-danger">{{ post.dislikes }}</span>
+      </button>
+
+      <!-- Comments -->
+      <a class="btn btn-link" [routerLink]="['/post', post.id, 'comments']">
+        <i class="bi bi-chat-left-text mr-2"></i>
+        <span>{{ getPostCommentsCount(post.id) }}</span>
+      </a>
+
+      <!-- Shares -->
+      <button class="btn btn-light" (click)="sharePost(post.id)">
+        <i class="bi bi-share mr-1"></i> Share
+        <!-- <span>{{ shareCount }}</span> -->
+      </button>
+    </div>
+  </div>
+
+  <!-- Blog Post Not Available -->
+  <div class="container my-5">
+    <!-- Spinner while loading posts -->
+    <div class="row" *ngIf="isLoading">
+      <div class="col text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="posts.length == 0">
+      <div class="col text-center">
+        <div class="alert alert-info" role="alert">
+          <h4 class="alert-heading">No Post Available</h4>
+          <p>
+            <!-- It looks like there are no posts to display at the moment. Please
+            check back later! -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <ul class="pagination justify-content-center mb-4" *ngIf="posts.length > 0">
+    <li
+      class="page-item"
+      (click)="prevPage()"
+      [ngClass]="{ disabled: page === 0 }"
+    >
+      <button class="page-link">&larr; Older</button>
+    </li>
+    <li
+      class="page-item"
+      (click)="nextPage()"
+      [ngClass]="{ disabled: page === totalPages - 1 }"
+    >
+      <button class="page-link">Newer &rarr;</button>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,115 @@
+<div class="mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Post Form</h1>
+</div>
+<form [formGroup]="postForm" (ngSubmit)="handleSubmit()" class="col-6">
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="post title"
+      formControlName="title"
+    />
+    <div
+      class="alert alert-danger p-1 fs-6"
+      role="alert"
+      [hidden]="!postForm.get('title')?.pristine"
+    >
+      Title is required!
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Post Image</label>
+    <input
+      type="url"
+      class="form-control"
+      placeholder="post image url"
+      formControlName="imageUrl"
+    />
+    <div
+      class="alert alert-danger p-1 fs-6"
+      role="alert"
+      [hidden]="!postForm.get('imageUrl')?.pristine"
+    >
+      Image Url is required!
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"
+      >Post Category</label
+    >
+    <!-- <input
+      type="url"
+      class="form-control"
+      placeholder="Post category"
+      formControlName="categoryId"
+    /> -->
+    <select
+      formControlName="categoryId"
+      placeholder="Post category"
+      class="form-control"
+    >
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+      <option value="" selected disabled>Choose Category</option>
+    </select>
+    <div
+      class="alert alert-danger p-1 fs-6"
+      role="alert"
+      [hidden]="!postForm.get('categoryId')?.pristine"
+    >
+      Post category is required!
+    </div>
+  </div>
+  <!-- <div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label"
+      >Date to publish</label
+    >
+    <input
+      type="date"
+      formControlName="date"
+      class="form-control"
+      formControlName="createdAt"
+    />
+    <div
+      class="alert alert-danger p-1 fs-6"
+      role="alert"
+      [hidden]="!postForm.get('createdAt')?.pristine"
+    >
+      Date is required!
+    </div>
+  </div> -->
+
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+    <!-- app.component.html -->
+
+    <ckeditor
+      *ngIf="Editor && config"
+      [editor]="Editor"
+      [config]="config"
+      formControlName="content"
+      tagName="textarea"
+    ></ckeditor>
+
+    <!-- <textarea id="Editor" formControlName="content"></textarea> -->
+
+    <!-- <textarea
+      formControlName="content"
+      class="form-control"
+      rows="3"
+    ></textarea> -->
+    <div
+      class="alert alert-danger p-1 fs-6"
+      role="alert"
+      [hidden]="!postForm.get('content')?.pristine"
+    >
+      Post content is required!
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!postForm.valid">
+    Submit
+  </button>
+</form>

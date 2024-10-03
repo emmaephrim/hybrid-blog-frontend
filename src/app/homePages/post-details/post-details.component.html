@@ -1,0 +1,116 @@
+<div class="row mt-4">
+  <div class="col">
+    <div class="post-content">
+      <img
+        src="{{
+          post.imageUrl ? post.imageUrl : 'images/blog_post_default_image.jpg'
+        }}"
+        alt="post-image"
+        class="img-responsive post-image"
+      />
+      <div class="post-container">
+        <img
+          src="https://bootdey.com/img/Content/avatar/avatar6.png"
+          alt="user"
+          class="profile-photo-md pull-left"
+        />
+        <div class="post-detail">
+          <div class="user-info">
+            <h5>
+              <a href="timeline.html" class="profile-link">{{
+                findPostAuthor(post.userId)
+              }}</a>
+              <!-- <span class="following">following</span> -->
+            </h5>
+            <p class="text-muted">
+              Published on {{ formatDate(post.createdAt) }}
+            </p>
+          </div>
+          <div class="reaction">
+            <button class="btn btn-light" (click)="likePost(post.id)">
+              <i class="fa fa-thumbs-up text-success mr-2"></i>
+              <span class="text-success">{{ post.likes }}</span>
+            </button>
+
+            <button class="btn btn-light" (click)="dislikePost(post.id)">
+              <i class="fa fa-thumbs-down text-danger mr-2"></i>
+              <span class="text-danger">{{ post.dislikes }}</span>
+            </button>
+          </div>
+          <div class="line-divider"></div>
+          <div class="post-text">
+            <div [innerHTML]="post.content"></div>
+          </div>
+          <div class="line-divider"></div>
+          <!-- <div class="post-comment">
+            <img
+              src="https://bootdey.com/img/Content/avatar/avatar7.png"
+              alt=""
+              class="profile-photo-sm"
+            />
+            <p>
+              <a href="timeline.html" class="profile-link">Diana </a
+              ><i class="em em-laughing"></i> Lorem ipsum dolor sit amet,
+              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+              labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+              nostrud
+            </p>
+          </div> -->
+          <!-- <div class="post-comment" *ngFor="let comment of comments">
+            <img
+              src="https://bootdey.com/img/Content/avatar/avatar1.png"
+              alt=""
+              class="profile-photo-sm"
+            />
+            <p>
+              <a href="timeline.html" class="profile-link">{{
+                findCommentAuthor(comment.userId)
+              }}</a>
+              {{ comment.content }}
+            </p>
+          </div> -->
+          <div class="post-comment" *ngFor="let comment of comments">
+            <img
+              src="https://bootdey.com/img/Content/avatar/avatar1.png"
+              alt=""
+              class="profile-photo-sm"
+            />
+            <p>
+              <a href="timeline.html" class="profile-link">
+                {{ findCommentAuthor(comment.userId) }}
+              </a>
+              {{ comment.content }}
+            </p>
+          </div>
+
+          <form [formGroup]="commentForm" (ngSubmit)="handleCommentSubmit()">
+            <div class="post-comment">
+              <img
+                src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                alt=""
+                class="profile-photo-sm"
+              />
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Post a comment"
+                formControlName="content"
+                max="200"
+                required="required"
+              />
+            </div>
+            <div class="d-flex justify-content-end" style="margin-top: -6px">
+              <button
+                type="submit"
+                [disabled]="!commentForm.valid"
+                class="btn btn-primary pull-right"
+              >
+                submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

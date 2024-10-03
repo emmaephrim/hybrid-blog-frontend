@@ -1,0 +1,228 @@
+<main class="body">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">HYBRID BLOG</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarResponsive"
+        aria-controls="navbarResponsive"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto d-flex align-items-center">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow" *ngIf="isAuthenticated">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="userDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                >Valerie Luna</span
+              > -->
+              <img
+                class="img-profile rounded-circle"
+                src="https://picsum.photos/id/13/200/300"
+                width="30"
+                height="30"
+              />
+            </a>
+            <!-- Dropdown - User Information -->
+            <div
+              class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+              aria-labelledby="userDropdown"
+            >
+              <a *ngIf="isAdmin()" class="dropdown-item" href="/admin">
+                <i
+                  class="fas fa-user-shield fa-sm fa-fw mr-2 text-gray-400"
+                ></i>
+                Admin
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                Profile
+              </a>
+              <!-- <a class="dropdown-item" href="#">
+                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                Settings
+              </a> -->
+
+              <div class="dropdown-divider"></div>
+              <!-- Logout Button -->
+              <button
+                class="dropdown-item"
+                data-toggle="modal"
+                data-target="#logoutModal"
+              >
+                <i
+                  class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+                ></i>
+                Logout
+              </button>
+            </div>
+          </li>
+          <li class="nav-item" *ngIf="!isAuthenticated">
+            <a class="nav-link btn btn-light text-dark py-1" href="/login"
+              >Login</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container min-vh-100">
+    <div class="row">
+      <!-- Blog Entries Column -->
+      <!-- <app-posts class="col-md-8" /> -->
+      <div class="col-md-8">
+        <router-outlet />
+      </div>
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <form (ngSubmit)="onSearch()">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search for..."
+                  [(ngModel)]="searchQuery"
+                  name="search"
+                />
+                <span class="input-group-btn">
+                  <button class="btn btn-secondary" type="submit">Go!</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul
+                  class="list-unstyled mb-0"
+                  *ngFor="let category of categories.slice(0, 3)"
+                >
+                  <li>
+                    <a
+                      [routerLink]="['/posts']"
+                      [queryParams]="{ search: category.id }"
+                      >{{ category.name }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul
+                  class="list-unstyled mb-0"
+                  *ngFor="let category of categories.slice(3)"
+                >
+                  <li>
+                    <a
+                      [routerLink]="['/posts']"
+                      [queryParams]="{ search: category.id }"
+                      >{{ category.name }}</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">Content here</div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+
+  <!-- Logout Confirmation Modal -->
+  <div
+    class="modal fade"
+    id="logoutModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button
+            class="close"
+            type="button"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Select "Logout" below if you are ready to end your current session.
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            data-dismiss="modal"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">
+        Copyright &copy; Hybrid Blog {{ currentYear }}
+      </p>
+    </div>
+    <!-- /.container -->
+  </footer>
+</main>
