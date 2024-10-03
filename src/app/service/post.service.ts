@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Post } from '../model/post';
 import { AuthService } from './auth.service';
+import { apiBaseUrl } from './env';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,8 @@ export class PostService {
   private baseUrl: string;
   authService: AuthService = inject(AuthService);
   constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:8080/api/posts';
-    // this.baseUrl = 'https://blog-app-v1-tagname.onrender.com/api/posts';
+    // this.baseUrl = 'http://localhost:8080/api/posts';
+    this.baseUrl = apiBaseUrl + '/api/posts';
   }
 
   public findAllPosts(): Observable<Post[]> {

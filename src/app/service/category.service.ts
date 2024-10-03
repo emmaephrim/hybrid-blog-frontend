@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { CategoryModel } from '../model/category';
+import { apiBaseUrl } from './env';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private baseUrl: string = 'http://localhost:8080/api/categories';
+  // private baseUrl: string = 'http://localhost:8080/api/categories';
+  private baseUrl: string = apiBaseUrl + '/api/categories';
 
   constructor(private httpClient: HttpClient) {}
 
