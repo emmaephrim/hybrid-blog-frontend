@@ -18,8 +18,8 @@ import { CategoryModel } from '../../model/category';
     FormsModule,
   ],
   templateUrl: './home.component.html',
-  styleUrls: ['./blog-home.css'],
-  // styleUrls: ['./home.component.css', './blog-home.css'],
+  // styleUrls: ['./blog-home.css'],
+  styleUrls: ['./home.component.css', './blog-home.css'],
 })
 export class HomeComponent {
   searchQuery: string = '';
