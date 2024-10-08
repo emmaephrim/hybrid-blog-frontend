@@ -9,6 +9,7 @@ import { CategoryModel } from '../../model/category';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 // import 'datatables.net-responsive';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-manage-posts',
@@ -21,6 +22,7 @@ export class ManagePostsComponent implements OnInit {
   posts: Post[] = [];
   categories: CategoryModel[] = [];
   deletePostId!: string;
+  isLoading: boolean = this.posts.length === 0;
 
   dtOptions: Config = {};
 
@@ -32,14 +34,17 @@ export class ManagePostsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // if (isPlatformBrowser(PLATFORM_ID)) {
     import('datatables.net-responsive');
     this.dtOptions = {
       responsive: true,
       processing: true,
     };
+    // }
 
     this.postService.findAllPosts().subscribe((result) => {
       this.posts = result;
+      this.isLoading = false;
     });
 
     this.categoryService

@@ -10,17 +10,22 @@ export const authGuard: CanActivateFn = () => {
   const location = inject(Location);
   const currentUrl = location.path();
 
+  // if (isPlatformServer(platformId)) {
+  //   return true;
+  // }
+
   if (isPlatformBrowser(platformId)) {
     if (authService.isAdmin()) {
       return true;
     } else {
-      return router.createUrlTree(['/']);
+      // return router.createUrlTree(['/']);
+      return router.navigateByUrl('/');
     }
   } else {
     return false;
   }
 
-  //  if (isPlatformServer(platformId)) {
+  // if (isPlatformServer(platformId)) {
   //   return true;
   // }
 
@@ -31,5 +36,5 @@ export const authGuard: CanActivateFn = () => {
   //     return router.createUrlTree(['/']);
   //   }
   // }
-  // return true;
+  // return false;
 };

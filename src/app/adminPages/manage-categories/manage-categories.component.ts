@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID } from '@angular/core';
 import { CategoryService } from '../../service/category.service';
 import { CategoryModel } from '../../model/category';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DataTablesModule } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Config } from 'datatables.net';
+// import * as $ from 'jquery';
+declare var $: any;
+
 import {
   FormControl,
   FormGroup,
@@ -27,6 +30,7 @@ export class ManageCategoriesComponent implements OnInit {
 
   deleteCategoryId!: string;
   editCategoryId!: string;
+  isLoading: boolean = this.categories.length === 0;
 
   categoryForm: FormGroup = new FormGroup({
     id: new FormControl(null),
@@ -46,14 +50,17 @@ export class ManageCategoriesComponent implements OnInit {
   dtOptions: Config = {};
 
   ngOnInit(): void {
-    import('datatables.net-responsive');
-    this.dtOptions = {
-      responsive: true,
-      processing: true,
-    };
+    if (isPlatformBrowser(PLATFORM_ID)) {
+      import('datatables.net-responsive');
+      this.dtOptions = {
+        responsive: true,
+        processing: true,
+      };
+    }
 
     this.categoryService.getAllCategories().subscribe((data) => {
       this.categories = data;
+      this.isLoading = false;
     });
   }
 

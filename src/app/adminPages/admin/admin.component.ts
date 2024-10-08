@@ -18,8 +18,8 @@ import { AuthService } from '../../service/auth.service';
   templateUrl: './admin.component.html',
   styleUrls: [
     './admin.component.css',
-    '../../../../public/admin/css/sb-admin-2.min.css',
-    '../../../../public/admin/vendor/fontawesome-free/css/all.min.css',
+    // '../../../../public/admin/css/sb-admin-2.min.css',
+    // '../../../../public/admin/vendor/fontawesome-free/css/all.min.css',
   ],
 })
 export class AdminComponent {
