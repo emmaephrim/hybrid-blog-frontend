@@ -50,13 +50,13 @@ export class ManageCategoriesComponent implements OnInit {
   dtOptions: Config = {};
 
   ngOnInit(): void {
-    if (isPlatformBrowser(PLATFORM_ID)) {
-      import('datatables.net-responsive');
-      this.dtOptions = {
-        responsive: true,
-        processing: true,
-      };
-    }
+    // if (isPlatformBrowser(PLATFORM_ID)) {
+    import('datatables.net-responsive');
+    this.dtOptions = {
+      responsive: true,
+      processing: true,
+    };
+    // }
 
     this.categoryService.getAllCategories().subscribe((data) => {
       this.categories = data;
