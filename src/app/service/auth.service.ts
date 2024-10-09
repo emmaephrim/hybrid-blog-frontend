@@ -4,7 +4,7 @@ import { User } from '../model/user';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { apiBaseUrl } from './env';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,8 @@ import { apiBaseUrl } from './env';
 export class AuthService {
   // private signupUrl = 'http://localhost:8080/api/auth/signup';
   // private loginUrl = 'http://localhost:8080/api/authenticate';
-  private loginUrl = apiBaseUrl + '/api/authenticate';
-  private signupUrl = apiBaseUrl + '/api/auth/signup';
+  private loginUrl = environment.apiBaseUrl + '/api/authenticate';
+  private signupUrl = environment.apiBaseUrl + '/api/auth/signup';
 
   jwtHelper: JwtHelperService = new JwtHelperService();
 
