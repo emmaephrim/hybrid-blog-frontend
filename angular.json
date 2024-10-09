@@ -38,10 +38,9 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "public/vendor/jquery/jquery.min.js",
+              "./public/admin/js/sb-admin-2.min.js",
               "./public/vendor/bootstrap/js/bootstrap.bundle.min.js",
               "./public/admin/vendor/jquery-easing/jquery.easing.min.js",
-              "./public/admin/js/sb-admin-2.min.js",
               "node_modules/datatables.net/js/dataTables.min.js",
               "./node_modules/datatables.net-dt/js/dataTables.dataTables.min.js",
               "node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
