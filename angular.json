@@ -44,7 +44,8 @@
               "node_modules/datatables.net/js/dataTables.min.js",
               "./node_modules/datatables.net-dt/js/dataTables.dataTables.min.js",
               "node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
-              "node_modules/datatables.net-responsive/js/dataTables.responsive.js"
+              "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
+              "public/js/page-not-found.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,

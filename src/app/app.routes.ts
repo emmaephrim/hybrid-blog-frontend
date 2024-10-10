@@ -12,6 +12,7 @@ import { PostDetailsComponent } from './homePages/post-details/post-details.comp
 import { ManagePostsComponent } from './adminPages/manage-posts/manage-posts.component';
 import { ManageCategoriesComponent } from './adminPages/manage-categories/manage-categories.component';
 import { SideWidgetComponent } from './adminPages/side-widget/side-widget.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   // {
@@ -63,4 +64,5 @@ export const routes: Routes = [
     component: ForgotPasswordComponent,
     title: 'Forgot Password',
   },
+  { path: '**', component: PageNotFoundComponent, title: 'Page Not Found' },
 ];
